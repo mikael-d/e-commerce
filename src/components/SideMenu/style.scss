@@ -1,0 +1,12 @@
+.side-menu__list{
+    list-style-type: none ;
+
+    &__item {
+
+        &--active {
+            color: red;
+        }
+
+    }
+}
+
