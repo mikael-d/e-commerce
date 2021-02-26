@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-unreachable */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
@@ -6,6 +7,8 @@ import React, { useState } from 'react';
 import {
   Card, Button, Row, Col, Modal, Container, Image,
 } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../actions/actions';
 
 import './style.scss';
 
@@ -21,7 +24,7 @@ const ProductList = ({
       <Row>
         {allProducts
           && allProducts.map((product) => (
-            <CardProduct product={product} cartCount={cartCount} setCartCount={setCartCount} />
+            <CardProduct addToCart={addToCart} product={product} cartCount={cartCount} setCartCount={setCartCount} />
           ))}
 
         {!allProducts.length
@@ -43,6 +46,11 @@ const ProductModal = ({
   cartCount,
   setCartCount,
 }) => {
+  const dispatch = useDispatch();
+
+  const add = (item, quantity) => {
+    dispatch(addToCart(item, quantity));
+  };
   const increaseCount = () => {
     setCount(count >= 1 ? count + 1 : count);
   };
@@ -86,7 +94,15 @@ const ProductModal = ({
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => { setCartCount(cartCount + count); }}>Understood</Button>
+        <Button
+          variant="primary"
+          onClick={() => {
+            setCartCount(cartCount + count);
+            add(product, count);
+          }}
+        >
+          Understood
+        </Button>
       </Modal.Footer>
     </Modal>
   );
@@ -132,6 +148,7 @@ const CardProduct = ({
           </Button>
         </Card.Body>
         <ProductModal
+          addToCart={addToCart}
           setCount={setCount}
           count={count}
           product={product}

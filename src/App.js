@@ -1,5 +1,7 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { list } from './data/data';
@@ -8,10 +10,16 @@ import { list } from './data/data';
 import NavMenu from './components/NavMenu';
 
 // pages
-import Home from './pages/Home';
-import Cart from './pages/Cart';
+import HomePage from './pages/Home';
+import CartPage from './pages/Cart';
 
-const App = () => {
+// container
+import CheckoutContainer from './containers/Checkout';
+
+const App = ({
+  // eslint-disable-next-line react/prop-types
+  items,
+}) => {
   // modifie l'index de la catégorie de produi  ts
   const [categorie, setCategorie] = useState(0);
 
@@ -37,6 +45,12 @@ const App = () => {
     setProductsFilter(result);
   };
 
+  console.log('items', items);
+
+  // useEffect(() => {
+  //   saveLocalStorage(items);
+  // }, [items]);
+
   return (
     <Router>
       <div className="App">
@@ -47,7 +61,7 @@ const App = () => {
               setFiltering={setFiltering}
               cartCount={cartCount}
             />
-            <Home
+            <HomePage
               cartCount={cartCount}
               setCategorie={setCategorie}
               categorie={categorie}
@@ -63,7 +77,15 @@ const App = () => {
               setFiltering={setFiltering}
               cartCount={cartCount}
             />
-            <Cart />
+            <CartPage />
+          </Route>
+          <Route>
+            <NavMenu
+              filter={filterResult}
+              setFiltering={setFiltering}
+              cartCount={cartCount}
+            />
+            <CheckoutContainer />
           </Route>
         </Switch>
       </div>

@@ -1,13 +1,25 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { store } from './ store';
+import { saveState } from './localStorage';
+
+import AppContainer from './containers/App';
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
+
+console.log('state', store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

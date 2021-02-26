@@ -9,29 +9,26 @@ import { Row, Col, Container } from 'react-bootstrap';
 import SideMenu from '../../components/SideMenu';
 import ProductList from '../../components/ProductList';
 
-const Home = (props) => {
-  console.log('productFiltered', props.filteredProducts);
-  return (
-    <div className="home">
-      <Container fluid>
-        <Row>
-          <SideMenu
-            setCategorie={props.setCategorie}
-            categorie={props.categorie}
+const HomePage = (props) => (
+  <div className="home">
+    <Container fluid>
+      <Row>
+        <SideMenu
+          setCategorie={props.setCategorie}
+          categorie={props.categorie}
+        />
+        <Col sm={8}>
+          <ProductList
+            allProducts={props.isFiltering ? props.filteredProducts : props.list[props.categorie]}
+            filteredProduct={props.filteredProduct}
+            cartCount={props.cartCount}
+            setCartCount={props.setCartCount}
           />
-          <Col sm={8}>
-            <ProductList
-              allProducts={props.isFiltering ? props.filteredProducts : props.list[props.categorie]}
-              filteredProduct={props.filteredProduct}
-              cartCount={props.cartCount}
-              setCartCount={props.setCartCount}
-            />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+        </Col>
+      </Row>
+    </Container>
+  </div>
 
-  );
-};
+);
 
-export default Home;
+export default HomePage;

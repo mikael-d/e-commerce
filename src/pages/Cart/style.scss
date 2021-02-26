@@ -1,0 +1,43 @@
+.order-summary {
+
+    &--row {
+        padding: 1em;
+    }
+
+    &__price {
+          border-radius: 5px;
+          border: 1px solid gray;
+          background-color: whitesmoke;
+          color: black;
+
+          &__sub-total {
+              border-top: 1px solid gray;
+              border-bottom: 1px solid gray;
+              padding: 1em 0;
+          }
+    }
+
+    &__button {
+        width: 100%;
+    }
+  
+}
+
+
+.table-row {
+
+
+    &__data {
+
+
+
+
+
+
+
+
+
+        
+
+    }
+}
